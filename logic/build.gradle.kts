@@ -1,16 +1,5 @@
 plugins {
-    java
-    `java-library`
-    jacoco
-    application
-}
-
-java.toolchain {
-    languageVersion.set(JavaLanguageVersion.of(21))
-}
-
-repositories {
-    mavenCentral()
+    id("hu.bme.mit.ase.shingler.gradle.java")
 }
 
 val picoCliVersion = "4.7.6"
@@ -29,20 +18,4 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 
     api(project(":lib"))
-}
-
-tasks {
-    test {
-        useJUnitPlatform()
-        testLogging.showStandardStreams = true
-        finalizedBy(jacocoTestReport)
-    }
-
-    jacocoTestReport {
-        inputs.files(test.get().outputs)
-    }
-}
-
-application {
-    mainClass = "hu.bme.mit.ase.shingler.similarity.SimilarityApp"
 }
